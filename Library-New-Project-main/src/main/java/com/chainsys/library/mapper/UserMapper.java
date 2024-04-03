@@ -22,6 +22,8 @@ public class UserMapper implements RowMapper<User> {
 		String city = rs.getString("city");
 		String state = rs.getString("state");
 		String pincode = rs.getString("pincode");
+		
+		
 		user.setId(id);
 		user.setUserName(userName);
 		user.setEmail(email);

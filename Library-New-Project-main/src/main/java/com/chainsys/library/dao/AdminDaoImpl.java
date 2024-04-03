@@ -42,8 +42,7 @@ public class AdminDaoImpl implements AdminDao {
 	public int update(Books books) {
 		String sqlQuery = "update ebook.book_details set book_name=?,author=?,price=?,book_category=?,status=?,published_year=?,qty_instock=?,photo=? where book_id=?";
 		Object[] params = {books.getBookName(),books.getAuthor(),books.getPrice(),books.getBookCategory(),books.getStatus(),books.getPublishedYear(),books.getQtyInstock(),books.getPhotoName(),books.getBookId()};
-		//System.out.println("dao update.."+books.getBookName()+","+books.getQtyInstock()+","+books.getBookId());
-		int noOfRow = jdbcTemplate.update(sqlQuery, params);
+	    int noOfRow = jdbcTemplate.update(sqlQuery, params);
 		return noOfRow;
 	}
 	@Override

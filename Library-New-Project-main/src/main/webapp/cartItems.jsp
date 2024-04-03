@@ -15,6 +15,7 @@
     <link href="../css/styles.css" rel="stylesheet" type="text/css">
     <link href="../fonts/fontawesome/css/all.css" rel="stylesheet" />
     <link rel="icon" href="../img/mindkey_logo.png" type="image/png">
+    <script src="JS/order.js" defer></script>
 </head>
 
 <body class="mk-home">
@@ -117,7 +118,7 @@
                         <a href="/userHome?uid=${userobj.id}" class="mk-cr-contshp">Continue Shopping</a>
                     </div>
                     <div class="mkclear mk-cr-ode mk-cr-deldate">
-                        <span class="mk-e">Estimated Delivery by </span><span class="mk-d">10 April, 2024</span>
+                        <span class="mk-e">Estimated Delivery by </span><span class="mk-d">${deliveryDate}</span>
                     </div>
                 </div>
                 <div class="mk-coup">
@@ -127,12 +128,13 @@
                 </div>
             </div>
         </div>
+        <div class="mk-noti" id="mk-noti" style="color: red;">${failedMsg}</div>
     </div>
     <div class="mk-pop">
         <div id="mk-pop-overlay" class="mk-overlay"></div>
         <div class="mk-content">
             <h4>Delivery Details <a href="#" id="mk-pop-close"><i class="fa fa-xmark"></i></a></h4>
-            <form action="/order" method="get">
+            <form action="/order" method="get" id="form">
                 <input type="hidden" value="${userobj.id}" name="id">
             <div class="mk-cr-bx-ip mkclear">
                 <div class="mk-cr-bx-ipe">
@@ -149,23 +151,28 @@
                 </div>
                 <div class="mk-cr-bx-ipe">
                     <label>Address</label>
-                    <input type="text" name="address" placeholder="Enter your address" />
+                    <input type="text" name="address"  placeholder="Enter your address" id="inputAddress"/>
+                    <div class="error"></div>
                 </div>
                 <div class="mk-cr-bx-ipe">
                     <label>Landmark</label>
-                    <input type="text" name="landmark" placeholder="Enter your landmark" />
-                </div>
+                    <input type="text" name="landmark" id="inputLandmark" placeholder="Enter your landmark" />
+                    <div class="error"></div>
+                </div> 
                 <div class="mk-cr-bx-ipe">
                     <label>City</label>
-                    <input type="text" name="city" placeholder="Enter your city" />
+                    <input type="text" name="city" id="inputCity" placeholder="Enter your city"  />
+                    <div class="error"></div>
                 </div>
                 <div class="mk-cr-bx-ipe">
                     <label>State</label>
-                    <input type="text" name="state" placeholder="Enter your state" />
+                    <input type="text" name="state" id="inputState" placeholder="Enter your state"  />
+                    <div class="error"></div>
                 </div>
                 <div class="mk-cr-bx-ipe">
                     <label>Pincode</label>
-                    <input type="number" name="pincode" placeholder="Enter your pincode" />
+                    <input type="number" name="pincode" id="inputPincode" placeholder="Enter your pincode"  />
+                    <div class="error"></div>
                 </div>
                 <div class="mk-cr-bx-ipe">
                     <label>Payment Mode</label>
@@ -206,6 +213,16 @@
             document.querySelector('.mk-pop').classList.remove('active');
             event.stopPropagation();
         });
+
+        if (window.location.href.indexOf("order") > -1) {
+                document.getElementById('mk-noti').style.display = 'block'; // show
+
+                setTimeout(pophidefn, 3000);
+
+                function pophidefn() {
+                    document.getElementById('mk-noti').style.display = 'none'; // hide
+                }
+            }
     </script>
 </body>
 

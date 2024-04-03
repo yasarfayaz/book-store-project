@@ -118,6 +118,15 @@ public class User {
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password
+				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", landmark=" + landmark + ", city=" + city
+				+ ", state=" + state + ", pincode=" + pincode + "]";
+	}
 	
 		
 }

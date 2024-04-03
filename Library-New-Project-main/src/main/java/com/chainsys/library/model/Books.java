@@ -2,15 +2,16 @@ package com.chainsys.library.model;
 
 public class Books {
 
-	int bookId;
-	String bookName;
-	String author;
-	double price;
-	String bookCategory;
-	String status;
-	int publishedYear;
-	int qtyInstock;
-	String photoName;
+	private int bookId;
+	private String bookName;
+	private String author;
+	private double price;
+	private String bookCategory;
+	private String status;
+	private int publishedYear;
+	private int qtyInstock;
+	private String photoName;
+	
 	
 	public int getBookId() {
 		return bookId;
@@ -66,4 +67,13 @@ public class Books {
 	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
+	
+	@Override
+	public String toString() {
+		return "Books [bookId=" + bookId + ", bookName=" + bookName + ", author=" + author + ", price=" + price
+				+ ", bookCategory=" + bookCategory + ", status=" + status + ", publishedYear=" + publishedYear
+				+ ", qtyInstock=" + qtyInstock + ", photoName=" + photoName + "]";
+	}
 }
+
+

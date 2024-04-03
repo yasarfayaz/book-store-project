@@ -31,8 +31,6 @@ public class BookMapper implements RowMapper<Books>{
 		books.setPublishedYear(publishedYear);
 		books.setQtyInstock(qtyInstock);
 		books.setPhotoName(photoName);
-	//	System.out.println(bookId+","+bookName+","+author+","+price+","+bookCategory
-		//		+","+status+","+publishedYear+","+qtyInstock+","+photoName);
 		return books;
 	}
 

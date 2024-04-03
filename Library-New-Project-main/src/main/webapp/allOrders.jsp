@@ -64,6 +64,7 @@
                                 <th class="c7">Author</th>
                                 <th class="c8">Price</th>
                                 <th class="c9">Payment Type</th>
+                               
                             </tr>
                         </table>
                     </div>

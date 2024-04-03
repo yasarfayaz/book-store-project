@@ -368,7 +368,14 @@ body.mk-register{
 .mk-rg-bx-ipe.error input{
     border-color: rgb(206, 67, 67);
 }
-
+.mk-lg-acc-p{
+	
+    margin-top: 20px;
+    width: 100%;
+    font-size: 14px;
+    float: left;
+    text-align: left;
+}
 /* Register page CSS */
 
 /* home page CSS */
@@ -1017,7 +1024,6 @@ td img{
 }
 .mk-content{
     width: 800px;
-    height: 425px;
     background-color: #fff;
     z-index: 1;
     position: absolute;
@@ -1089,6 +1095,19 @@ td img{
 }
 .mk-order-conf-main{
     padding: 10px 20px;
+}
+
+.mk-cr-bx-ipe .error{
+    color: rgb(242, 18, 18);
+    font-size: 10px;
+    margin-top: 5px;
+    float: left;
+}
+.mk-cr-bx-ipe.success input{
+    border-color: #0cc477;
+}
+.mk-cr-bx-ipe.error input{
+    border-color: rgb(206, 67, 67);
 }
 
 /* cart page CSS */
@@ -1310,6 +1329,19 @@ td img{
     transform: rotate(45deg);
     transition: .2s all;
     color: #e36363;
+}
+
+.mk-ai-bx-ipe .error{
+    color: rgb(242, 18, 18);
+    font-size: 12px;
+    margin-top: 5px;
+
+}
+.mk-ai-bx-ipe.success input{
+    border-color: #0cc477;
+}
+.mk-ai-bx-ipe.error input{
+    border-color: rgb(206, 67, 67);
 }
 
 /*Dashboard Page */

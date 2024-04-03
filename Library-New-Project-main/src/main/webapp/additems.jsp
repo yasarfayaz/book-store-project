@@ -13,6 +13,7 @@
     <link href="../css/styles.css" rel="stylesheet" type="text/css">
     <link href="../fonts/fontawesome/css/all.css" rel="stylesheet" />
     <link rel="icon" href="../img/mindkey_logo.png" type="image/png">
+    <script src="JS/addbook.js" defer></script>
 </head>
 
 <body class="mk-ai">
@@ -48,6 +49,7 @@
                     <a class="mk-ad-home" href="/adminHome" title="Home" class="mk-home-clk"><i class="fa fa-home"></i></a>
                     <i class="fa fa-swatchbook"></i> <span>Books</span>
                     <a href="#" id="mk-add-book-open-clk" class="mk-add-book-open-clk"><i class="fa fa-plus"></i></a>
+                    <div class="mk-noti" id="mk-noti" style="color:red;">${bookAdd}</div>
                 </h4>
                 <% List<Books> book =(List<Books>) request.getAttribute("book_list");
                         %>
@@ -124,7 +126,7 @@
                 </div>
             </div>
             <div class="mk-ai-overlay"></div>
-            <form action="/addBook" method="get">
+            <form action="/addBook" method="get" id="form">
             <div class="mk-ai-r">
                 <div class="mk-ai-r-main">
                     <!-- <h4>Add Books<a href="#" class="mk-add-book-save"><i class="fa-solid fa-floppy-disk"></i></a></h4> -->
@@ -132,23 +134,28 @@
                     <div class="mk-ai-bx-ip  mk-scroll">
                         <div class="mk-ai-bx-ipe">
                             <label>Book Name</label>
-                            <input type="text" name="bookName" placeholder="Enter book name" />
+                            <input type="text" id="inputBookName" name="bookName"  placeholder="Enter book name" required="required" />
+                            <div class="error"></div>
                         </div>
                         <div class="mk-ai-bx-ipe">
                             <label>Author</label>
-                            <input type="text" name="author" placeholder="Enter author name" />
+                            <input type="text" id="inputAuthorName" name="author" placeholder="Enter author name" required="required" />
+                            <div class="error"></div>
                         </div>
                         <div class="mk-ai-bx-ipe">
                             <label>Price</label>
-                            <input type="number" name="price" placeholder="Enter price" />
+                            <input type="number" id="inputPrice" name="price" placeholder="Enter price" required="required" />
+                            <div class="error"></div>
                         </div>
                         <div class="mk-ai-bx-ipe">
                             <label>Published Year</label>
-                            <input type="text" name="publishedYear" placeholder="Enter year" />
+                            <input type="text" id="inputPublishedYear" name="publishedYear" placeholder="Enter year" required="required" />
+                            <div class="error"></div>
                         </div>
                         <div class="mk-ai-bx-ipe">
                             <label>Quantity</label>
-                            <input type="text" name="qtyInstock" placeholder="Enter quantity" />
+                            <input type="text" id="inputBookQty" name="qtyInstock" placeholder="Enter quantity" required="required" />
+                            <div class="error"></div>
                         </div>
                         <div class="mk-ai-bx-ipe">
                             <label>Category</label>
@@ -185,6 +192,7 @@
             </div>
             </form>
         </div>
+        
     </div>
     <footer>
         <p> &#169; Developed By Noorullah</p>
@@ -211,6 +219,16 @@
             (document.querySelector(".mk-ai").classList.contains("right-active")) ? document.querySelector('.mk-ai').classList.remove('right-active') : document.querySelector('.mk-ai').classList.add('right-active');
             event.stopPropagation();
         });
+
+        if (window.location.href.indexOf("addBook") > -1) {
+                document.getElementById('mk-noti').style.display = 'block'; // show
+
+                setTimeout(pophidefn, 3000);
+
+                function pophidefn() {
+                    document.getElementById('mk-noti').style.display = 'none'; // hide
+                }
+            }
     </script>
 </body>
 

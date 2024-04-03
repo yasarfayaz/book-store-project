@@ -2,10 +2,15 @@ package com.chainsys.library.validation;
 
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chainsys.library.model.User;
 
 public class UserValid {
 
+	Logger logger = LoggerFactory.getLogger(UserValid.class);
+	
 	public boolean isValid(User user) {
 		//get User Details
 		String userName  = user.getUserName();
@@ -13,7 +18,6 @@ public class UserValid {
 		String password = user.getPassword();
 		String phoneNumber = user.getPhoneNumber();
 		
-		System.out.println(userName+"  "+email+" "+password);
 		
 		boolean nameValidation = userNameValid(userName);
 		boolean emailValidation =emailValid(email);
@@ -24,6 +28,7 @@ public class UserValid {
 			
 			return true;
 		} else {
+			logger.error("There is an Error in User Validation at Java Level");
             return false;
 		}
 		
@@ -31,13 +36,14 @@ public class UserValid {
 	}
 
 	//UserName Validation
-	private boolean userNameValid(String userName) {
+	public boolean userNameValid(String userName) {
 		String nameRegex = "[a-z .A-Z]+$";
 		Pattern pattern = Pattern.compile(nameRegex,Pattern.MULTILINE);
 		
 		if ((pattern.matcher(userName).matches())&&(userName != "")&&(userName != null)&&(userName.length() >= 3)) {
 			return true;
 		} else {
+			logger.error("There is an Error in UserName Validation at Java Level");
             return false;
 		}
 		
@@ -45,7 +51,7 @@ public class UserValid {
 	
 
 	//Email validation
-	private boolean emailValid(String email) {
+	public boolean emailValid(String email) {
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
 	                         "[a-zA-Z0-9_+&*-]+)*@"+
 	                         "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
@@ -55,16 +61,18 @@ public class UserValid {
 		if ((pattern.matcher(email).matches())&&(email != "")&&(email != null)) {
 			return true;
 		} else {
+			logger.error("There is an Error in Email Validation at Java Level");
             return false;
 		}
 	}
 	
 	
 	//Password Validation
-	private boolean passwordValid(String password) {
+	public boolean passwordValid(String password) {
 		if ((password != "")&&(password != null)&&((password.length() >= 6))) {
 			return true;
 		} else {
+			logger.error("There is an Error in Password Validation at Java Level");
 			return false;
 		}
 		

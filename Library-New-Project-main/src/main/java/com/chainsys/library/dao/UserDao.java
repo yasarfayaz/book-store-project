@@ -10,12 +10,10 @@ import com.chainsys.library.model.User;
 public interface UserDao {
 
 	public void saveUser(User userRegister);
-//	public List<User> userList();
 	public User findOne(int userId);
 	public boolean findUser(String email);
-//	public int update(User user);
-//	public int delete(String email);
 	public List<Books> bookCategory(String bookCategory);
+	public boolean findBook(String bookName);
 	public List<Books> newBook();
 	public List<Books> comicsBook();
 	public List<Books> historicalBook();

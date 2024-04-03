@@ -42,21 +42,29 @@
             </div>
         </div>
     </header>
+
+    <% List<Order> order =(List<Order>) request.getAttribute("allOrder");
+            %>
+    <% int orderCount=0;
+		for (Order orderlist : order) {
+			orderCount++;
+		}%>
+        <% int orderPendind = orderCount-26; %>
     <div class="mk-main">
         <div class="mk-ds-main">
             <div class="mk-ds-l">
                 <div class="mk-ds-tp mkclear">
                     <div class="mk-e-bx mx-total-order">
                         <h4>Total Order</h4>
-                        <span>300</span>
+                        <span><%=orderCount %></span>
                     </div>
                     <div class="mk-e-bx mx-pending-order">
                         <h4>Pending Order</h4>
-                        <span>100</span>
+                        <span><%=orderPendind %></span>
                     </div>
                     <div class="mk-e-bx mx-delivered-order">
                         <h4>Delivered</h4>
-                        <span>200</span>
+                        <span><%=orderCount-orderPendind %></span>
                     </div>
                     <a href="/allBooks">
                     <div class="mk-e-bx mx-add-book">
@@ -67,8 +75,7 @@
                 </div>
 
                 <!----------------------------Orders--------------------------->
-                <% List<Order> order =(List<Order>) request.getAttribute("allOrder");
-                        %>
+                
                 <h4 class="mk-allord">Orders</h4>
                 <div class="mk-ds-tb-main">
                     <div class="mk-ds-tb-hd">

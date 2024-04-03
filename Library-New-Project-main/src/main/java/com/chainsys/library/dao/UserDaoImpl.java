@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.catalina.mapper.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,20 +26,22 @@ public class UserDaoImpl implements UserDao  {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
+	Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 	
 	//User RegisterForm Added
 	public void saveUser(User userRegister) {
 		try {
 			String password = userRegister.getPassword();
-			//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			//String encoderPassword = encoder.encode(password);
-			//System.out.println(encoderPassword);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String encoderPassword = encoder.encode(password);
+
 			String sqlQuery = "INSERT INTO ebook.user (name,email,phone_no, password) VALUES (?,?,?,?)";
-			Object[] params = {userRegister.getUserName(),userRegister.getEmail(),userRegister.getPhoneNumber(),password};
+			Object[] params = {userRegister.getUserName(),userRegister.getEmail(),userRegister.getPhoneNumber(),encoderPassword};
 			jdbcTemplate.update(sqlQuery,params);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in Adding User");
+			logger.error("There is Some SQL Error in Adding User");
 		}
 		
 	}
@@ -54,7 +58,7 @@ public class UserDaoImpl implements UserDao  {
 			return bookList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in bringing NewBook List");
+			logger.error("There is Some SQL Error in bringing ScienceFiction Book List");
 		    return null;
 		}
 		
@@ -69,7 +73,7 @@ public class UserDaoImpl implements UserDao  {
 			return bookList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in bringing ComicsBook List");
+			logger.error("There is Some SQL Error in bringing Comics Book List");
 		    return null;
 		}
 		
@@ -85,7 +89,7 @@ public class UserDaoImpl implements UserDao  {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in bringing HistoricalBook List");
+			logger.error("There is Some SQL Error in bringing Historical Book List");
 			return null;
 		}
 			}
@@ -95,12 +99,12 @@ public class UserDaoImpl implements UserDao  {
 	public User login(String email, String password) {
 		User user = null;
 		try {
-			String sqlQuery = "select * from ebook.user where email=? and password=?";
-			 user = jdbcTemplate.queryForObject(sqlQuery, new UserMapper(),email,password);
+			String sqlQuery = "select * from ebook.user where email=?";
+			 user = jdbcTemplate.queryForObject(sqlQuery, new UserMapper(),email);
 			 return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Sql Error in Login Page");
+			logger.error("Sql Error in Login Page");
 			return user;
 		}
 		
@@ -119,7 +123,7 @@ public class UserDaoImpl implements UserDao  {
 			} 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Cart Added Error in SQL");
+			logger.error("Cart Added Error in SQL");
 		}
 		
 		return f;
@@ -132,22 +136,14 @@ public class UserDaoImpl implements UserDao  {
 		try {
 			String sqlQuery = "select * from ebook.cart where user_id=?";
 			cart = jdbcTemplate.query(sqlQuery, new CartMapper(),userId);
-			System.out.println("cart dao...."+cart);
 			return cart;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in Bringing All CartList");
+			logger.error("There is Some SQL Error in Bringing All CartList");
 		     return cart;
 		}
 		
 	}
-
-//	@Override
-//	public List<User> userList() {
-//		String sqlQuery ="select * from bookstore.registration";
-//		List<User> usersList = jdbcTemplate.query(sqlQuery,new UserMapper() );
-//		return usersList;
-//	}
 
 	//Bringing find one User
 	@Override
@@ -155,30 +151,13 @@ public class UserDaoImpl implements UserDao  {
 		try {
 			String sqlQuery = "select * from ebook.user where id = ?";
 			User oneRecord = jdbcTemplate.queryForObject(sqlQuery,new UserMapper(),userId);
-			System.out.println("Finding one record : "+oneRecord);
-			
 			return oneRecord;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Findind one User Record Error in SQL Statement");
+			logger.error("Findind one User Record Error in SQL Statement");
 		    return null;
 		}
 	}
-//
-//	@Override
-//	public int update(User user) {
-//		String sqlQuery = "update bookstore.registration set user_name=?,cnfpassword=?,password=? where email=?";
-//		Object[] params = {user.getUserName(),user.getConfirmPassword(),user.getPassword(),user.getEmail()};
-//		int noOfRows = jdbcTemplate.update(sqlQuery, params);
-//		return noOfRows;
-//	}
-//
-//	@Override
-//	public int delete(String email) {
-//		String sqlQuery = "delete from bookstore.registration where email='"+email+"'";
-//		int noOfRows = jdbcTemplate.update(sqlQuery);
-//		return noOfRows;
-//	}
 
 	//Remove Cart Items
 	@Override
@@ -194,7 +173,7 @@ public class UserDaoImpl implements UserDao  {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Remove Cart Items Error In SQL Statement");
+			logger.error("Remove Cart Items Error In SQL Statement");
 		}
 				return f;
 	}
@@ -224,7 +203,7 @@ public class UserDaoImpl implements UserDao  {
 			return order;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Order ALL list Error in SQL Statement");
+			logger.error("Order ALL list Error in SQL Statement");
 			return order;
 		}
 	
@@ -239,7 +218,7 @@ public class UserDaoImpl implements UserDao  {
 			return bookList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Search List Error in SQL statement");
+			logger.error("Search List Error in SQL statement");
 			return null;
 		}
 
@@ -248,20 +227,19 @@ public class UserDaoImpl implements UserDao  {
 	//Bringing find one User from userlist
 	@Override
 	public boolean findUser(String email) {
-		boolean fo =false;
+		boolean userCheck =false;
 		try {
 			List<User>  user = null;
 			String sqlQuery = "select * from ebook.user where email = '"+email+"'";
 			 user = jdbcTemplate.query(sqlQuery, new UserMapper());
 			if (user.isEmpty() ) {
-				fo =true;
+				userCheck =true;
 			} 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Finding one User ERROR In SQL Statement");
-			
+			logger.error("Finding one User ERROR In SQL Statement");
 		}
-		return fo;
+		return userCheck;
 	}
 
 
@@ -275,8 +253,35 @@ public class UserDaoImpl implements UserDao  {
 			return bookList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("There is Some SQL Error in bringing NewBook List");
+			//System.out.println("There is Some SQL Error in bringing NewBook List");
+			logger.error("There is Some SQL Error in Bringing BookCategory List");
 		    return null;
 		}
 	}
+
+
+
+
+	@Override
+	public boolean findBook(String bookName) {
+		boolean bookCheck = false;
+		try {
+			List<Books> book = null;
+			String sqlQuery = "select * from ebook.book_details where book_name=?";
+			book = jdbcTemplate.query(sqlQuery, new BookMapper(),bookName);
+			System.out.println("book findone :"+book);
+			if (book.isEmpty()) {
+				bookCheck = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Findind one Book Record Error in SQL Statement");
+		}
+		return bookCheck;
+	}
+
+
+
+
+	
 }
